@@ -15,9 +15,14 @@ class ListMedicalAppointment extends React.Component {
         const {MedicalAppointments} = this.state;
 
         const medicalAppointmentList = MedicalAppointments.map((medicalAppointment) =>(
-            
-                <MedicalAppointment data={medicalAppointment}> 
-                </MedicalAppointment>
+                <div>
+                    <MedicalAppointment data={medicalAppointment}> 
+                    </MedicalAppointment>
+                    <div>
+                        <button>REMOVER</button>
+                    </div>
+                </div>
+                
             
           )) 
         return (
