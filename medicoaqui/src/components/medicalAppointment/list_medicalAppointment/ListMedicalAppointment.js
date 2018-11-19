@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import MedicalAppointment from "../medicalAppointment/MedicalAppointment"
+import MedicalAppointment from "../medicalAppointment/MedicalAppointment";
+
+import CreateMedicalAppointment from "../create_medicalAppointment/Create_medicalAppointment";
 
 class ListMedicalAppointment extends React.Component {
     
@@ -28,6 +30,7 @@ class ListMedicalAppointment extends React.Component {
         return (
             <div>
                 {medicalAppointmentList}
+                {CreateMedicalAppointment}
             </div>
 
         );
