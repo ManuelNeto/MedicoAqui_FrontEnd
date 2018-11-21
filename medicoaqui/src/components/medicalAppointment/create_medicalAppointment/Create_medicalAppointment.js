@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Input, Button, Card, CardBody } from 'mdbreact';
-import DatePickerPage from './datepicker';
+//import DatePickerPage from './datepicker';
 
 class CreateMedicalAppointment extends React.Component  {
   constructor(props) {
