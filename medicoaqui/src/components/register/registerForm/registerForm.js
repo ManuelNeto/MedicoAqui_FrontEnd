@@ -3,8 +3,19 @@ import { Container, Row, Col, Input, Button, Card, CardBody } from 'mdbreact';
 import DatePickerPage from './datepicker';
 
 class RegisterForm extends React.Component {
+
+    state = {
+        Specialitys: ['Cardiologista', 'Endocrinologista', 'Clinico Geral']
+    };
     
     render() {
+
+        const {Specialitys} = this.state;
+
+        const specialitysList = Specialitys.map((speciality) =>(
+            <option value="{speciality}">{speciality}</option>    
+        )) 
+
         return (
             <Container>
               <Row>
@@ -21,10 +32,8 @@ class RegisterForm extends React.Component {
                             <option value="Patient">Patient</option>
                           </select>
                           <select className="browser-default custom-select" label="Choose your speciality" icon="user" group type="text" validate error="wrong" success="right">
-                            <option value="Cardiologista">Cardiologista</option>
-                            <option value="Clinico Geral">Clinico Geral</option>
+                            {specialitysList}
                           </select>
-                          
                           <Input label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
                           <Input label="Your password" icon="lock" group type="password" validate/>
                           <Input label="Confirm your password" icon="exclamation-triangle" group type="password" validate />

@@ -5,19 +5,27 @@ import { Container, Row, Col, Input, Button, Card, CardBody } from 'mdbreact';
 class CreateMedicalAppointment extends React.Component  {
   constructor(props) {
     super(props);
-    this.state = {
-      modal: false
-    }
-    this.toggle = this.toggle.bind(this);
+    
   }
 
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
+  state = {
+    Specialitys: ['Cardiologista', 'Endocrinologista', 'Clinico Geral'],
+    Doctors: [{name: 'Marcos'}, {name: 'Manuel'}, {name: 'Lucas'}]
   }
 
   render() {
+
+    const {Specialitys} = this.state;
+    const {Doctors} = this.state;
+
+    const specialitysList = Specialitys.map((speciality) =>(
+      <option value="{speciality}">{speciality}</option>    
+    )); 
+
+    const doctorsList = Doctors.map((doctor) =>(
+      <option value="{doctor}">{doctor.name}</option>    
+    )); 
+
     return(
         <Container>
         <Row>
@@ -28,16 +36,13 @@ class CreateMedicalAppointment extends React.Component  {
                   <p className="h4 text-center py-4">Agendar consulta</p>
                   <div className="grey-text">
                     <select className="browser-default custom-select" label="Choose your speciality" icon="user" group type="text" validate error="wrong" success="right">
-                      <option value="Cardiologista">Cardiologista</option>
-                      <option value="Clinico Geral">Clinico Geral</option>
+                            {specialitysList}
                     </select>
-                    <select className="browser-default custom-select" label="Choose your user kind" icon="user" group type="text" validate error="wrong" success="right">
-                      <option value="Doctor">Doctor</option>
-                      <option value="Patient">Patient</option>
+                    <select className="browser-default custom-select" label="Choose your speciality" icon="user" group type="text" validate error="wrong" success="right">
+                            {doctorsList}
                     </select>
-
-                    <Input label="Your proagnostic" icon="envelope" group type="email" validate error="wrong" success="right"/>
-                    <Input label="Your description" icon="envelope" group type="textarea" validate error="wrong" success="right"/>
+                    <Input label="Your proagnostic" icon="pencil" group type="email" validate error="wrong" success="right"/>
+                    <Input label="Your description" icon="pencil" group type="textarea" validate error="wrong" success="right"/>
                     
                   </div>
                   <div className="text-center py-4 mt-3">
