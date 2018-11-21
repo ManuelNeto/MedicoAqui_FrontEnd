@@ -26,11 +26,20 @@ class CreateMedicalAppointment extends React.Component  {
       <option value="{doctor}">{doctor.name}</option>    
     )); 
 
+    const styleForm = {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "70px"
+    }
+
+    const styleForm2 = {
+      width: "500px"
+    }
+
     return(
-        <Container>
-        <Row>
-          <Col md="6">
-            <Card>
+      <Container style={styleForm}>
+        <Card style={styleForm2}>
               <CardBody>
                 <form>
                   <p className="h4 text-center py-4">Agendar consulta</p>
@@ -45,14 +54,16 @@ class CreateMedicalAppointment extends React.Component  {
                     <Input label="Your description" icon="pencil" group type="textarea" validate error="wrong" success="right"/>
                     
                   </div>
+                  
                   <div className="text-center py-4 mt-3">
+                    <Button color="second">
+                      Cancel
+                    </Button>
                     <Button color="cyan" type="submit">Agendar</Button>
                   </div>
                 </form>
               </CardBody>
             </Card>
-          </Col>
-        </Row>
       </Container>
     );
   }

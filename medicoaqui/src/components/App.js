@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-
+import './App.css';
 import Login from "./login/login";
 import ListMedicalAppointment from "./medicalAppointment/list_medicalAppointment/ListMedicalAppointment";
 import CreateMedicalAppointment from "./medicalAppointment/create_medicalAppointment/Create_medicalAppointment";

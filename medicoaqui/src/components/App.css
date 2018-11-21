@@ -27,6 +27,16 @@
   background-repeat: no-repeat;
   background-size: cover; /* Resize the background image to cover the entire container */
   background-position: center; /* Center the image */
+  position: fixed;
+  width: 2500px;
+  height: 1400px;
+
+}
+
+.chXdSi {
+  width: 200px;
+  height: 100%;
+  margin: 0%
 }
 
 @keyframes App-logo-spin {
