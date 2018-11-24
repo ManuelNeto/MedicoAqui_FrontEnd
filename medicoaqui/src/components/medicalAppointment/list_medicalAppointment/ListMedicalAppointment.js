@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { Container, Row, Col, Input, Button, Card, CardBody } from 'mdbreact';
+import React from 'react';
+import { Container, Row, Col, Card, CardBody, Button } from 'mdbreact';
+import  { Link } from 'react-router-dom'
+
 
 import MedicalAppointment from "../medicalAppointment/MedicalAppointment";
 
@@ -34,6 +36,9 @@ class ListMedicalAppointment extends React.Component {
                     <CardBody>
                         <p className="h4 text-center py-4">Listagem de consultas</p>
                         {medicalAppointmentList}
+                        <Button color="second">
+                            <Link to='/createMedicalAppointment'> ADD </Link>
+                        </Button>
                     </CardBody>
                   </Card>
                 </Col>
