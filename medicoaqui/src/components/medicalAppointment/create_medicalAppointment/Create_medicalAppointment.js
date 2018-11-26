@@ -36,6 +36,7 @@ class CreateMedicalAppointment extends React.Component  {
   createMedicalAppointment() {
     const request = {
         method: 'post',
+        headers: {'x-access-token': localStorage.getItem('token')},
         url: 'http://localhost:4000/medicalAppointment',
         data: {
             proagnostic: 'Gastrite',
