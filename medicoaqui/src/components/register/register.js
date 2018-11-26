@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import RegisterForm from './registerForm/registerForm';
 
 class Register extends React.Component {
     constructor(){
@@ -10,12 +11,10 @@ class Register extends React.Component {
     };
 
     render() {
+        
         return (
             <div>
-                Email: <input name="email" value={this.state.email} type="text"/>
-                Password: <input name="email" value={this.state.password} type="text"/>
-                <br/> {this.state.email}
-                <br/> {this.state.password}
+                <RegisterForm/>
             </div>
         );
     };
