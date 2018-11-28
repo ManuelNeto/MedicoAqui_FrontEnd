@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
         
         this.state = {
             isLogged: false,
-            username: '',
+            email: '',
             password: ''
         }
         
@@ -46,8 +46,8 @@ class LoginForm extends React.Component {
             method: 'post',
             url: 'http://localhost:4000/login',
             data: {
-                email: 'neto@email.com',
-                password: '123456'
+                email: this.state.email,
+                password: this.state.password
             }
         }
 
@@ -61,7 +61,7 @@ class LoginForm extends React.Component {
             
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
-            this.props.history.push('/listMedicalAppointment');
+            this.props.history.push('/register');
           }).catch((err) => {
             console.log(err);
             toast.error('Impossível Cadastrar!')
@@ -90,10 +90,10 @@ class LoginForm extends React.Component {
                                 <p className="h5 text-center mb-4">Sign in</p>
                                 <div className="grey-text">
                                     <Input label="Type your email" icon="envelope" group type="email" 
-                                        validate error="wrong" success="right"
+                                        validate error="wrong" success="right" name='email'
                                         value={this.state.email} onChange={this.handleChange}  
                                     />
-                                    <Input label="Type your password" icon="lock" group type="password" validate
+                                    <Input label="Type your password" icon="lock" group type="password" validate name='password'
                                         value={this.state.password} onChange={this.handleChange}  
                                     />
                                 </div>

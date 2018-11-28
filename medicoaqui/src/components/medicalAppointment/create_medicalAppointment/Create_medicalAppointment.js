@@ -10,13 +10,11 @@ class CreateMedicalAppointment extends React.Component  {
 
     this.state = {
       Specialitys: ['Cardiologista', 'Endocrinologista', 'Clinico Geral'],
-      Doctors: [{name: 'Marcos'}, {name: 'Manuel'}, {name: 'Lucas'}],
-      MedicalAppointment: {
+      Doctors: [],
         proagnostic: "",
         description: "",
         speciality: "",
         doctor: ""
-      }
     }
     
     this.handleChange = this.handleChange.bind(this);
@@ -39,12 +37,16 @@ class CreateMedicalAppointment extends React.Component  {
         headers: {'x-access-token': localStorage.getItem('token')},
         url: 'http://localhost:4000/medicalAppointment',
         data: {
-            proagnostic: 'Gastrite',
-            description: "Dor no estomago",
-            doctor: "Manuel",
-            speciality: "Gastro",
+            proagnostic: this.state.proagnostic,
+            description: this.state.description,
+            patient: "5bf9b1dabfe7652a4c3dbf2b",
+            doctor: "5bf9985b035e5c09f4349607",
+            speciality: this.state.speciality,
         }
     }
+
+
+    console.log(request.data);
 
     axios(request).then((response) => {
       toast.success(response.data.message);
@@ -56,15 +58,16 @@ class CreateMedicalAppointment extends React.Component  {
 
   render() {
 
+    
     const {Specialitys} = this.state;
     const {Doctors} = this.state;
 
-    const specialitysList = Specialitys.map((speciality) =>(
-      <option value="{speciality}">{speciality}</option>    
+    const specialitysList = Specialitys.map((speciality, key) =>(
+      <option value={{speciality}} key={key} >{speciality}</option>
     )); 
 
-    const doctorsList = Doctors.map((doctor) =>(
-      <option value="{doctor}">{doctor.name}</option>    
+    const doctorsList = Doctors.map((doctor, key) =>(
+      <option value={doctor} key={key}>{doctor.name}</option>    
     )); 
 
     const styleForm = {
@@ -85,18 +88,18 @@ class CreateMedicalAppointment extends React.Component  {
                 <form>
                   <p className="h4 text-center py-4">Agendar consulta</p>
                   <div className="grey-text">
-                    <select className="browser-default custom-select" label="Choose your speciality" icon="user" group type="text" validate error="wrong" success="right">
+                    <select className="browser-default custom-select" label="Choose your speciality" icon="user">
                             {specialitysList}
                     </select>
-                    <select className="browser-default custom-select" label="Choose your speciality" icon="user" group type="text" validate error="wrong" success="right">
+                    <select className="browser-default custom-select" label="Choose your speciality" icon="user">
                             {doctorsList}
                     </select>
                     <Input label="Your proagnostic" icon="pencil" group type="email" 
-                      validate error="wrong" success="right"
+                      validate error="wrong" name='proagnostic' success="right"
                       value={this.state.proagnostic} onChange={this.handleChange} 
                     />
                     <Input label="Your description" icon="pencil" group type="textarea" 
-                      validate error="wrong" success="right"
+                      validate error="wrong" success="right" name='description'
                       value={this.state.description} onChange={this.handleChange}
                     />
                     

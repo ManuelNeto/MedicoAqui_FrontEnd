@@ -36,18 +36,12 @@ class RegisterForm extends React.Component {
           method: 'post',
           url: 'http://localhost:4000/user',
           data: {
-              //name: this.state.name,
-              //age: this.state.age,
-              //userKind: this.state.userKind,
-              //speciality: this.state.speciality,
-             // email: this.state.email,
-              //password: this.state.password
-
-              name: 'Manuel',
-              age: 18,
-              userKind: 'Patient',
-              email: 'neto@email.com',
-              password: '123456'
+              name: this.state.name,
+              age: this.state.age,
+              userKind: this.state.userKind,
+              speciality: this.state.speciality,
+              email: this.state.email,
+              password: this.state.password
           }
       }
 
@@ -95,30 +89,30 @@ class RegisterForm extends React.Component {
                         <div className="grey-text">
                           <Input 
                             label="Your name" icon="user" group type="text" 
-                            validate error="wrong" success="right"
+                            validate error="wrong" success="right" name='name'
                             value={this.state.name} onChange={this.handleChange}
                           />
                           <Input 
                             label="Your age" icon="user" group type="number" 
-                            validate error="wrong" success="right"
+                            validate error="wrong" success="right" name='age'
                             value={this.state.age} onChange={this.handleChange}  
                           />
                           <select className="browser-default custom-select" label="Choose your user kind" 
-                            icon="user" group type="text" validate error="wrong" success="right">
+                            icon="user" name="userKind">
                               <option value="Doctor">Doctor</option>
                               <option value="Patient">Patient</option>
                           </select>
                           
                           <Input 
                             label="Your email" icon="envelope" group type="email" 
-                            validate error="wrong" success="right"
+                            validate error="wrong" success="right" name='email'
                             value={this.state.email} onChange={this.handleChange}  
 
                           />
-                          <Input label="Your password" icon="lock" group type="password" validate
+                          <Input label="Your password" icon="lock" group type="password" name='password' validate
                             value={this.state.password} onChange={this.handleChange}  
                           />
-                          <Input label="Confirm your password" icon="exclamation-triangle" group type="password" validate 
+                          <Input label="Confirm your password" icon="exclamation-triangle" group type="password" name='passwordConfirm' validate 
                           
                           />
                           
