@@ -1,18 +1,40 @@
 import React from 'react';
-import { Container, Row, Col, Card, CardBody, Button } from 'mdbreact';
+import { Container, Row, Col, Card, CardBody, Button, toast } from 'mdbreact';
 import  { Link } from 'react-router-dom'
+import axios from 'axios'
+
 
 
 import MedicalAppointment from "../medicalAppointment/MedicalAppointment";
 
 class ListMedicalAppointment extends React.Component {
+
+    constructor(props) {
+        super(props);
     
-    state = {
-        MedicalAppointments: [{doctor: 'Manuel', patient: 'Caio', prognostic: "Dor de cabeça", date: "25/02/2018"},
-            {doctor: 'Manuel', patient: 'José', prognostic: "Dor de Barriga", date: "05/12/2018"},
-            {doctor: 'Manuel', patient: 'Marcos', prognostic: "Dor de cabeça", date: "08/10/2018"},
-        ]
+        this.state = {
+            MedicalAppointments: []
+        }
+
+        this.getMedicalAppointments();
+        
     };
+
+    getMedicalAppointments() {
+        const request = {
+            method: 'get',
+            headers: {'x-access-token': localStorage.getItem('token')},
+            url: 'http://localhost:4000/medicalAppointment'
+            
+        }
+    
+        axios(request).then((response) => {
+            this.setState({MedicalAppointments: response.data.data})
+        }).catch((err) => {
+          console.log(err);
+          toast.error('Impossível Cadastrar!')
+        });
+    }
     
     render() {
         const {MedicalAppointments} = this.state;

@@ -2,13 +2,19 @@ import React from 'react';
 import { Container, Input, Button, Card, CardBody, toast, ToastContainer } from 'mdbreact';
 import  { Link } from 'react-router-dom'
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
+
 
 class LoginForm extends React.Component {
+
+    _isMounted = false;
+
     constructor(props) {
         super(props)
         
         this.state = {
-            username: '',
+            isLogged: false,
+            email: '',
             password: ''
         }
         
@@ -26,19 +32,36 @@ class LoginForm extends React.Component {
         event.preventDefault();
     }
 
+    componentDidMount = () => {
+        this._isMounted = true;
+    }
+    
+    componentWillUnmount = () => {
+        this._isMounted = false;
+    }
+
     login() {
 
         const request = {
             method: 'post',
             url: 'http://localhost:4000/login',
             data: {
-                email: 'manuel@email.com',
-                password: '123456'
+                email: this.state.email,
+                password: this.state.password
             }
         }
 
         axios(request).then((response) => {
             toast.success('Bem-vindo ' + response.data.message);
+            var token = response.data.data.token;
+            var tokenDecode = jwt.decode(token);
+            var userId = tokenDecode.id;
+            
+            if(this._isMounted) this.setState({isLogged: true, message: response.data.message});
+            
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId', userId);
+            this.props.history.push('/register');
           }).catch((err) => {
             console.log(err);
             toast.error('Impossível Cadastrar!')
@@ -67,10 +90,10 @@ class LoginForm extends React.Component {
                                 <p className="h5 text-center mb-4">Sign in</p>
                                 <div className="grey-text">
                                     <Input label="Type your email" icon="envelope" group type="email" 
-                                        validate error="wrong" success="right"
+                                        validate error="wrong" success="right" name='email'
                                         value={this.state.email} onChange={this.handleChange}  
                                     />
-                                    <Input label="Type your password" icon="lock" group type="password" validate
+                                    <Input label="Type your password" icon="lock" group type="password" validate name='password'
                                         value={this.state.password} onChange={this.handleChange}  
                                     />
                                 </div>
