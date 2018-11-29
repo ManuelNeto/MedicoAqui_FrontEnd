@@ -35,28 +35,45 @@ class ListMedicalAppointment extends React.Component {
           toast.error('Impossível Cadastrar!')
         });
     }
+
+    removeMedicalAppointment(id) {
+        console.log('oi');
+        const request = {
+            method: 'delete',
+            headers: {'x-access-token': localStorage.getItem('token')},
+            url: 'http://localhost:4000/medicalAppointment/' + id
+            
+        }
+    
+        axios(request).then((response) => {
+            toast.success('Medical Appointment successfully removed!')
+        }).catch((err) => {
+          console.log(err);
+          toast.error('Impossible to remove')
+        });
+    }
     
     render() {
         const {MedicalAppointments} = this.state;
 
-        const medicalAppointmentList = MedicalAppointments.map((medicalAppointment) =>(
-                <div>
-                    <MedicalAppointment data={medicalAppointment}> 
-                    </MedicalAppointment>
-                    <div>
-                        <button>REMOVER</button>
-                    </div>
+        const medicalAppointmentList = MedicalAppointments.map((medicalAppointment, key) =>(
+            <div>
+                <MedicalAppointment data={medicalAppointment} key={key}> 
+                </MedicalAppointment>
+                <div className="text-center py-4 mt-3">
+                    <Button color="cyan" onClick={this.removeMedicalAppointment(medicalAppointment._id)}>REMOVE</Button>
                 </div>
-                
+            </div>    
             
-          )) 
+        )) 
+        
         return (
             <Container>
               <Row>
                 <Col md="6">
                   <Card>
                     <CardBody>
-                        <p className="h4 text-center py-4">Listagem de consultas</p>
+                        <p className="h4 text-center py-4">List of Medical Appointments</p>
                         {medicalAppointmentList}
                         <Button color="second">
                             <Link to='/createMedicalAppointment'> ADD </Link>

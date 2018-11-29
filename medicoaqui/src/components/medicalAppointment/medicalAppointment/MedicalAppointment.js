@@ -10,7 +10,7 @@ const MedicalAppointment = ({data}) => (
                         <small>{data.date}</small>
                     </div>
                     <p class="mb-1">{data.prognostic}</p>
-                    <small>{data.patient}</small>
+                    <small>{data.description}</small>
             </ListGroupItem>
         </div>
        
