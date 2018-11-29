@@ -64,7 +64,7 @@ class LoginForm extends React.Component {
             this.props.history.push('/register');
           }).catch((err) => {
             console.log(err);
-            toast.error('Impossível Cadastrar!')
+            toast.error('Impossible login!')
           });
 
     }
@@ -98,9 +98,11 @@ class LoginForm extends React.Component {
                                     />
                                 </div>
                                 <div className="text-center py-4 mt-3">
-                                    <Button color="second">
-                                        <Link to='/register'> Register </Link>
-                                    </Button>
+                                        <Link to='/register' color="second"> 
+                                            <Button >
+                                                Register  
+                                            </Button>                                       
+                                         </Link>
                                     <Button color="cyan" type="submit" onClick={this.handleSubmit}>Login</Button>
                                 </div>
                                 </form>

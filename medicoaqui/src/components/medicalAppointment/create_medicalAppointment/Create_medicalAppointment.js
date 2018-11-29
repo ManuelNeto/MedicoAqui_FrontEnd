@@ -131,9 +131,11 @@ class CreateMedicalAppointment extends React.Component  {
                   </div>
                   
                   <div className="text-center py-4 mt-3">
-                    <Button color="second">
-                      <Link to='/listMedicalAppointment'> Cancel </Link>
-                    </Button>
+                    <Link to='/listMedicalAppointment' color="second"> 
+                      <Button >
+                          Cancel  
+                      </Button>                                       
+                    </Link>
                     <Button color="cyan" type="submit" onClick={this.handleSubmit}>Schedule</Button>
                   </div>
                 </form>

@@ -75,9 +75,11 @@ class ListMedicalAppointment extends React.Component {
                     <CardBody>
                         <p className="h4 text-center py-4">List of Medical Appointments</p>
                         {medicalAppointmentList}
-                        <Button color="second">
-                            <Link to='/createMedicalAppointment'> ADD </Link>
-                        </Button>
+                        <Link to='/createMedicalAppointment' color="second"> 
+                            <Button >
+                            ADD  
+                            </Button>                                       
+                        </Link>
                     </CardBody>
                   </Card>
                 </Col>

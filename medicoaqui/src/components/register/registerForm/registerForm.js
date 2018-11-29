@@ -119,9 +119,11 @@ class RegisterForm extends React.Component {
                           
                         </div>
                         <div className="text-center py-4 mt-3">
-                          <Button color="second">
-                            <Link to='/'> Cancel </Link>
-                          </Button>
+                            <Link to='/' color="second"> 
+                              <Button >
+                                Cancel  
+                              </Button>                                       
+                            </Link>
                           <Button color="cyan" type="submit" onClick={this.handleSubmit}>Register</Button>
                         </div>
                       </form>
