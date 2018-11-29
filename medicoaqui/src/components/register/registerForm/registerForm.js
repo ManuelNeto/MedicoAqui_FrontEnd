@@ -9,6 +9,7 @@ class RegisterForm extends React.Component {
         super(props)
         
         this.state = {
+            Specialitys: ['Cardio', 'Clínico Geral', 'Pediatra'],
             name: '',
             age: '',
             speciality: '',
@@ -45,6 +46,8 @@ class RegisterForm extends React.Component {
           }
       }
 
+      console.log(request.data);
+
       axios(request).then((response) => {
         toast.success(response.data.message);
       }).catch((err) => {
@@ -57,11 +60,11 @@ class RegisterForm extends React.Component {
 
     render() {
 
-        //const {Specialitys} = this.state;
+        const {Specialitys} = this.state;
 
-        //const specialitysList = Specialitys.map((speciality) =>(
-        //    <option value="{speciality}">{speciality}</option>    
-        //)) 
+        const specialitysList = Specialitys.map((speciality, key) =>(
+            <option value={speciality} key={key}>{speciality}</option>    
+        )) 
 
         const styleForm = {
             flexDirection: "row",
@@ -74,18 +77,12 @@ class RegisterForm extends React.Component {
           width: "500px"
         }
 
-        //function setIsDoctor(){
-          
-        //}
-
-        //const {isdoctor} = this.state;
-
         return (
             <Container style={styleForm}>
                   <Card style={styleForm2}>
                     <CardBody>
                       <form>
-                        <p className="h2 text-center py-4">Sign up</p>
+                        <p className="h2 text-center py-4"> Register </p>
                         <div className="grey-text">
                           <Input 
                             label="Your name" icon="user" group type="text" 
@@ -101,6 +98,10 @@ class RegisterForm extends React.Component {
                             icon="user" name="userKind">
                               <option value="Doctor">Doctor</option>
                               <option value="Patient">Patient</option>
+                          </select>
+
+                          <select className="browser-default custom-select" label="Choose your speciality" icon="user">
+                                  {specialitysList}
                           </select>
                           
                           <Input 

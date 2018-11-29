@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import {Switch, Route} from 'react-router-dom'
 import './App.css';
 import Login from "./login/login";
