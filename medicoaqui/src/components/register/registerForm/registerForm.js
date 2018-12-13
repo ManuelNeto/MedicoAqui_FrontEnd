@@ -60,17 +60,10 @@ class RegisterForm extends React.Component {
 
     render() {
 
-        const {Specialitys} = this.state;
-
-        const specialitysList = Specialitys.map((speciality, key) =>(
-            <option value={speciality} key={key}>{speciality}</option>    
-        )) 
-
         const styleForm = {
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center"
-            //marginTop: "70px"
         }
 
         const styleForm2 = {
@@ -95,15 +88,18 @@ class RegisterForm extends React.Component {
                             value={this.state.age} onChange={this.handleChange}  
                           />
                           <select className="browser-default custom-select" label="Choose your user kind" 
-                            icon="user" name="userKind">
+                            icon="user" name="userKind" value={this.state.userKind} onChange={this.handleChange}>
                               <option value="Doctor">Doctor</option>
                               <option value="Patient">Patient</option>
                           </select>
 
-                          <select className="browser-default custom-select" label="Choose your speciality" icon="user">
-                                  {specialitysList}
+                          <select className="browser-default custom-select" label="Choose your speciality" 
+                            icon="user" name="speciality" value={this.state.speciality} onChange={this.handleChange}>
+                              <option value="Cardio">Cardio</option>
+                              <option value="Clínico Geral">Clínico Geral</option>
+                              <option value="Pediatra">Pediatra</option>
                           </select>
-                          
+
                           <Input 
                             label="Your email" icon="envelope" group type="email" 
                             validate error="wrong" success="right" name='email'

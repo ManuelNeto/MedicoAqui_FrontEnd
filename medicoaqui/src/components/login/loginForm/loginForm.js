@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
             email: '',
             password: ''
         }
-        
+        console.log(this.props.history);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -61,7 +61,7 @@ class LoginForm extends React.Component {
             
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
-            this.props.history.push('/register');
+            this.props.history.push('/listMedicalAppointment');
           }).catch((err) => {
             console.log(err);
             toast.error('Impossible login!')

@@ -2,7 +2,9 @@ import React from 'react';
 import { Container, Input, Button, Card, CardBody, toast, ToastContainer } from 'mdbreact';
 import  { Link } from 'react-router-dom'
 import axios from 'axios'
-//import DatePickerPage from './datepicker';
+import SelectSpecialty from './Select_Specialty';
+import SelectDoctor from './Select_Doctor';
+//import DatePickerPage from '. /datepicker';
 
 class CreateMedicalAppointment extends React.Component  {
   constructor(props) {
@@ -10,6 +12,7 @@ class CreateMedicalAppointment extends React.Component  {
 
     this.state = {
       Doctors: [],
+      DoctorsBySpecialty: [],
         prognostic: "",
         description: "",
         speciality: "",
@@ -35,13 +38,34 @@ class CreateMedicalAppointment extends React.Component  {
     this.getDoctors();
   }
 
+  getDoctorsBySpecialty() {
+    const request = {
+        method: 'post',
+        headers: {'x-access-token': localStorage.getItem('token')},
+        url: 'http://localhost:4000/user/doctorsBySpecialty',
+        data: {
+          speciality: this.state.speciality
+        }
+    }
+
+    console.log(this.props.data);
+    axios(request).then((response) => {
+      console.log(response.data);
+      this.setState({DoctorsBySpecialty: response.data.data});
+    }).catch((err) => {
+      console.log(err);
+      toast.error('Erro ao listar médicos!')
+    });
+  }
+
   getDoctors() {
     const request = {
         method: 'get',
-        headers: {'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViZmI0ZmFlYmZlNzY1MmE0YzNkYmYyZCIsImVtYWlsIjoia2lsbWFAY2NjLnVmY2cuZWR1LmJyIiwicGFzc3dvcmQiOiI0MGU0NWRlYWZkYzZhYzE0MmU0MzQwMGU4ZjRlMGRiZCIsInVzZXJLaW5kIjoiUGF0aWVudCIsImlhdCI6MTU0MzQ5NDcxMywiZXhwIjoxNTQzNTgxMTEzfQ.kla7cvEXrT6Z3n_3-2aIx3tvMmfAUJA8_OR4wVWmbPE'},
+        headers: {'x-access-token': localStorage.getItem('token')},
         url: 'http://localhost:4000/user/doctors'
     }
 
+    
     axios(request).then((response) => {
       this.setState({Doctors: response.data.data});
     }).catch((err) => {
@@ -52,8 +76,6 @@ class CreateMedicalAppointment extends React.Component  {
   
   createMedicalAppointment() {
 
-    console.log(localStorage.getItem('token'));
-
     const request = {
         method: 'post',
         headers: {'x-access-token': localStorage.getItem('token')},
@@ -63,13 +85,13 @@ class CreateMedicalAppointment extends React.Component  {
             description: this.state.description,
             patient: "5bf9b1dabfe7652a4c3dbf2b",
             doctor: "5bf9985b035e5c09f4349607",
+            speciality: this.state.speciality,
             date: this.state.date
         }
     }
 
-    console.log(request.data);
-
     axios(request).then((response) => {
+
       toast.success('Medical appointment successfully registered');
     }).catch((err) => {
       console.log(err);
@@ -77,17 +99,30 @@ class CreateMedicalAppointment extends React.Component  {
     });
   }
 
+  handleSpecialitysChange = e =>{
+    this.setState({speciality: e.target.value});
+    this.getDoctorsBySpecialty();
+  }
+
+  handleDoctorChange = e =>{
+    this.setState({doctor: e.target.value});
+    this.getDoctorsBySpecialty();
+  }
+
   render() {
 
     const {Doctors} = this.state;
+    const {DoctorsBySpecialty} = this.state;
 
     const specialitysList = Doctors.map((doctor, key) =>(
-      <option value={{doctor}} key={key} >{doctor.speciality}</option>
+      <option value={doctor.speciality} key={key} >{doctor.speciality}</option>
     )); 
 
-    const doctorsList = Doctors.map((doctor, key) =>(
-      <option value={doctor} key={key}>{doctor.name}</option>    
+    const doctorsList = DoctorsBySpecialty.map((doctor, key) =>(
+      <option value={doctor.name} key={key}>{doctor.name}</option>    
     )); 
+
+   
 
     const styleForm = {
         flexDirection: "row",
@@ -107,13 +142,10 @@ class CreateMedicalAppointment extends React.Component  {
                 <form>
                   <p className="h4 text-center py-4">Schedule Medical Appointment</p>
                   <div className="grey-text">
-                    <select className="browser-default custom-select" label="Choose your speciality" icon="user">
-                            {specialitysList}
-                    </select>
-                    <select className="browser-default custom-select" label="Choose your speciality" icon="user">
-                            {doctorsList}
-                    </select>
-                    
+                    <SelectSpecialty onChange={this.handleSpecialitysChange} data={specialitysList}>
+                    </SelectSpecialty>
+                    <SelectDoctor onChange={this.handleDoctorChange} data={doctorsList}>
+                    </SelectDoctor>
                     <Input label="Your prognostic" icon="pencil" group type="email" 
                       validate error="wrong" name='prognostic' success="right"
                       value={this.state.prognostic} onChange={this.handleChange} 
