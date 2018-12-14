@@ -48,9 +48,7 @@ class CreateMedicalAppointment extends React.Component  {
         }
     }
 
-    console.log(this.props.data);
     axios(request).then((response) => {
-      console.log(response.data);
       this.setState({DoctorsBySpecialty: response.data.data});
     }).catch((err) => {
       console.log(err);
@@ -83,15 +81,15 @@ class CreateMedicalAppointment extends React.Component  {
         data: {
             prognostic: this.state.prognostic,
             description: this.state.description,
-            patient: "5bf9b1dabfe7652a4c3dbf2b",
-            doctor: "5bf9985b035e5c09f4349607",
+            patient: "João",
+            doctor: "Kilma",
             speciality: this.state.speciality,
             date: this.state.date
         }
     }
 
     axios(request).then((response) => {
-
+      console.log(request.data);
       toast.success('Medical appointment successfully registered');
     }).catch((err) => {
       console.log(err);
@@ -106,7 +104,6 @@ class CreateMedicalAppointment extends React.Component  {
 
   handleDoctorChange = e =>{
     this.setState({doctor: e.target.value});
-    this.getDoctorsBySpecialty();
   }
 
   render() {
